@@ -1,0 +1,6 @@
+model Levels {
+  id     Int     @id @default(autoincrement())
+  name   String  @db.VarChar(120)
+  world  Worlds  @relation(fields: [wordId], references: [id])
+  wordId Int
+}

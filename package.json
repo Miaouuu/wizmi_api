@@ -11,7 +11,16 @@
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "format": "eslint . --ext .ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prisma:schema:_init": "cat ./prisma/database.prisma > ./prisma/schema.prisma",
+    "prisma:schema:_merge": "cat ./prisma/models/*.prisma >> ./prisma/schema.prisma",
+    "prisma:schema:merge": "npm run prisma:schema:_init && npm run prisma:schema:_merge",
+    "prisma:schema:format": "npx prisma format",
+    "prisma:schema:generate": "npx prisma format && npx prisma generate",
+    "prisma:migration:dev": "npx prisma migrate dev",
+    "prisma:migration:prod": "npx prisma migrate deploy",
+    "prisma:migration:status": "npx prisma migrate status",
+    "prisma:migration:reset": "npx prisma migrate reset"
   },
   "author": "Ruben",
   "license": "ISC",
@@ -27,8 +36,12 @@
     "husky": "^7.0.4",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.0",
+    "prisma": "^3.6.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.6.0"
   }
 }
