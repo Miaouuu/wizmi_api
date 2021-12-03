@@ -1,0 +1,10 @@
+model Notes {
+  id               Int             @id @default(autoincrement())
+  value            Boolean
+  user             Users           @relation(fields: [userId], references: [id])
+  userId           Int
+  communityLevel   CommunityLevels @relation(fields: [communityLevelId], references: [id])
+  communityLevelId Int
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}

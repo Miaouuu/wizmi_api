@@ -1,6 +1,6 @@
 model Worlds {
-  id     Int     @id @default(autoincrement())
-  name   String  @db.VarChar(255)
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(255)
   value  Float
   levels Levels[]
 }

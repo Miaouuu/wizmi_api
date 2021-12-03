@@ -1,0 +1,10 @@
+model FinishedLevels {
+  id        Int      @id @default(autoincrement())
+  user      Users    @relation(fields: [userId], references: [id])
+  userId    Int
+  level     Levels   @relation(fields: [levelId], references: [id])
+  levelId   Int
+  clearTime Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

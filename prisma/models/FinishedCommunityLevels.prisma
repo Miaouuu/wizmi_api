@@ -1,0 +1,12 @@
+model FinishedCommunityLevels {
+  id                Int              @id @default(autoincrement())
+  user              Users            @relation(fields: [userId], references: [id])
+  userId            Int
+  communityLevel    Levels           @relation(fields: [communityLevelId], references: [id])
+  communityLevelId  Int
+  clearTime         Int?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  CommunityLevels   CommunityLevels? @relation(fields: [communityLevelsId], references: [id])
+  communityLevelsId Int?
+}

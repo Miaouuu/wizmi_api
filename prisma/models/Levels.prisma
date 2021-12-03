@@ -1,6 +1,11 @@
 model Levels {
-  id     Int     @id @default(autoincrement())
-  name   String  @db.VarChar(120)
-  world  Worlds  @relation(fields: [wordId], references: [id])
-  wordId Int
+  id                      Int                       @id @default(autoincrement())
+  name                    String                    @db.VarChar(120)
+  reward                  String                    @db.Text
+  world                   Worlds                    @relation(fields: [worldId], references: [id])
+  worldId                 Int
+  data                    Json                      @db.Json
+  type                    Types                     @default(SQUARE)
+  finished                FinishedLevels[]
+  FinishedCommunityLevels FinishedCommunityLevels[]
 }
