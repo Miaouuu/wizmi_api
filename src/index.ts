@@ -1,15 +1,24 @@
-import { PrismaClient } from '@prisma/client';
+import { fastify } from 'fastify';
+import { routes, routesWithAuth } from './api/routes';
 
-const prisma = new PrismaClient();
+const server = fastify();
+const { PORT = 3000 } = process.env;
+server.register(routes);
+server.register(routesWithAuth);
 
-async function main() {
-  console.log(await prisma.worlds.findMany());
+const start = async () => {
+  try {
+    await server.listen(PORT);
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+
+declare module 'fastify' {
+  interface FastifyRequest {
+    user: { id: number };
+  }
 }
-main()
-  .catch((e) => {
-    throw e;
-  })
-
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
