@@ -16,7 +16,5 @@
     "airbnb-base",
     "airbnb-typescript/base"
   ],
-  "rules": { 
-    "prettier/prettier": 2
-  }
+  "rules": {}
 }
