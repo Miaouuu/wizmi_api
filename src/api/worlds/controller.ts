@@ -1,10 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { CreateWorldInput } from './models';
-import { createWorld, getAllWorlds } from './services';
+import { createWorld, findAllWorlds } from './services';
 
-export const allWorlds = async () => {
+export const getWorlds = async () => {
   try {
-    const worlds = await getAllWorlds();
+    const worlds = await findAllWorlds();
     return worlds;
   } catch {
     throw new Error('Error server !');

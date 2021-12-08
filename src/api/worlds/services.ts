@@ -1,10 +1,13 @@
 import prisma from '../../prisma';
 
-export const getAllWorlds = async () => {
+export const findAllWorlds = async () => {
   try {
     const worlds = await prisma.worlds.findMany({
       orderBy: {
         value: 'asc',
+      },
+      include: {
+        levels: true,
       },
     });
     return worlds;
