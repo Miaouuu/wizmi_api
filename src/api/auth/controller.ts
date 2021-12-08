@@ -1,23 +1,19 @@
 import { FastifyRequest } from 'fastify';
 import bcrypt from 'bcryptjs';
-import { UserLoginInput, UserRegisterInput } from './models';
+import { LoginUserInput, RegisterUserInput } from './models';
 import {
   existEmail, existUsername, generateToken, isEmail,
 } from './services';
-import prisma from '../../prisma';
+import { createUser, getUserByEmail } from '../users/services';
 
-export const login = async (req: FastifyRequest<UserLoginInput>) => {
+export const login = async (req: FastifyRequest<LoginUserInput>) => {
   const { email, password } = req.body;
   if (!isEmail(email)) {
     throw new Error('Wrong email format !');
   }
   let user;
   try {
-    user = await prisma.users.findFirst({
-      where: {
-        email,
-      },
-    });
+    user = await getUserByEmail(email);
   } catch {
     throw new Error('Error server !');
   }
@@ -28,7 +24,7 @@ export const login = async (req: FastifyRequest<UserLoginInput>) => {
   return { token };
 };
 
-export const register = async (req: FastifyRequest<UserRegisterInput>) => {
+export const register = async (req: FastifyRequest<RegisterUserInput>) => {
   const { email, username, password } = req.body;
   if (!isEmail(email)) {
     throw new Error('Wrong email format !');
@@ -40,13 +36,7 @@ export const register = async (req: FastifyRequest<UserRegisterInput>) => {
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
   try {
-    await prisma.users.create({
-      data: {
-        email,
-        username,
-        password: hashedPassword,
-      },
-    });
+    await createUser(email, username, hashedPassword);
     return { ok: true };
   } catch {
     throw new Error('Error server !');

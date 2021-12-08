@@ -1,9 +1,10 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
+import me from './controller';
 
-const routes = async (server: FastifyInstance) => {
+const routesWithAuth = async (server: FastifyInstance) => {
   server.get('/me', {
-    handler: async (req: FastifyRequest) => ({ me: req.user }),
+    handler: me,
   });
 };
 
-export default routes;
+export default routesWithAuth;

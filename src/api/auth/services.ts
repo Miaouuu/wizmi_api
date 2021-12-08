@@ -1,6 +1,8 @@
 import { FastifyRequest } from 'fastify';
 import jsonwebtoken from 'jsonwebtoken';
-import prisma from '../../prisma';
+import { getUserByEmail, getUserById, getUserByUsername } from '../users/services';
+
+const { JWT_SECRET = 'meow' } = process.env;
 
 function jwt(token: string, secret: string): Promise<{ id: number }> {
   return new Promise((resolve, reject) => {
@@ -14,13 +16,16 @@ function jwt(token: string, secret: string): Promise<{ id: number }> {
 }
 
 export const verifToken = async (req: FastifyRequest) => {
-  let { token } = req.headers;
+  const { authorization } = req.headers;
+  if (!authorization) {
+    throw new Error('No token provided');
+  }
+  const [, token] = authorization.split(' ');
   if (!token) {
     throw new Error('No token provided');
   }
-  token = token.toString();
   try {
-    const id = await jwt(token, 'user');
+    const id = await jwt(token, JWT_SECRET);
     if (typeof id !== 'number') {
       throw new Error('Unauthorized');
     }
@@ -32,17 +37,24 @@ export const verifToken = async (req: FastifyRequest) => {
   }
 };
 
-export const generateToken = (id: number) => jsonwebtoken.sign({ id }, 'user');
+export const isAdmin = async (req: FastifyRequest) => {
+  const { id } = req.user;
+  const user = await getUserById(id);
+  if (!user) {
+    throw new Error('Account doesn\'t exist !');
+  }
+  if (!user.roles.includes('ADMIN')) {
+    throw new Error('Unauthorized !');
+  }
+};
+
+export const generateToken = (id: number) => jsonwebtoken.sign({ id }, JWT_SECRET);
 
 export const isEmail = (email: string): boolean => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email.toLowerCase());
 
 export const existEmail = async (email: string): Promise<boolean> => {
   try {
-    const user = await prisma.users.findFirst({
-      where: {
-        email,
-      },
-    });
+    const user = await getUserByEmail(email);
     if (!user) {
       return false;
     }
@@ -54,11 +66,7 @@ export const existEmail = async (email: string): Promise<boolean> => {
 
 export const existUsername = async (username: string): Promise<boolean> => {
   try {
-    const user = await prisma.users.findFirst({
-      where: {
-        username,
-      },
-    });
+    const user = await getUserByUsername(username);
     if (!user) {
       return false;
     }

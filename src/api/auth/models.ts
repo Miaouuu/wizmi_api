@@ -1,4 +1,4 @@
-export interface UserRegisterInput {
+export interface RegisterUserInput {
   Body: {
     email: string;
     username: string;
@@ -6,7 +6,7 @@ export interface UserRegisterInput {
   };
 }
 
-export interface UserLoginInput {
+export interface LoginUserInput {
   Body: {
     email: string;
     password: string;
