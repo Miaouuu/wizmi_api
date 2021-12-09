@@ -6,12 +6,14 @@ import { isAdmin, verifToken } from './auth/services';
 import authRoutes from './auth/routes';
 import userRoutesWithAuth from './users/routes';
 import * as worlds from './worlds/routes';
+import * as levels from './levels/routes';
 
 export const routes = async (server: FastifyInstance) => {
   server.get('/', async () => 'ok');
 
   server.register(authRoutes, { prefix: '/auth' });
   server.register(worlds.routes, { prefix: '/worlds' });
+  server.register(levels.routes, { prefix: '/levels' });
 };
 
 export const routesWithAuth = async (server: FastifyInstance) => {
@@ -25,5 +27,6 @@ export const routesWithAuthAdmin = async (server: FastifyInstance) => {
   server.register(fastifyAuth).after(() => {
     server.addHook('preHandler', server.auth([verifToken, isAdmin], { relation: 'and' }));
     server.register(worlds.routesWithAuthAdmin, { prefix: '/worlds' });
+    server.register(levels.routesWithAuthAdmin, { prefix: '/levels' });
   });
 };
