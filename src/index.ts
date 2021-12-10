@@ -1,12 +1,13 @@
 import './env';
 
 import { fastify } from 'fastify';
+import fastifySwagger from 'fastify-swagger';
 import * as Sentry from '@sentry/node';
 import { PrismaClient } from '.prisma/client';
 import { routes, routesWithAuth, routesWithAuthAdmin } from './api/routes';
 
 const server = fastify();
-const { PORT = 3000, SENTRY_DSN = '' } = process.env;
+const { PORT = 3000, SENTRY_DSN = '', URL = '' } = process.env;
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -15,6 +16,33 @@ Sentry.init({
 server.addHook('onError', async (_request, _reply, error) => {
   Sentry.captureException(error);
 });
+
+server.register(fastifySwagger, {
+  routePrefix: '/documentation',
+  swagger: {
+    info: {
+      title: 'API - Wizmi',
+      description: 'API',
+      version: '0.1.0',
+    },
+    host: URL,
+    schemes: ['https'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+  },
+  uiConfig: {
+    docExpansion: 'full',
+    deepLinking: false,
+  },
+  uiHooks: {
+    onRequest(_request, _reply, next) { next(); },
+    preHandler(_request, _reply, next) { next(); },
+  },
+  staticCSP: true,
+  transformStaticCSP: (header) => header,
+  exposeRoute: true,
+});
+
 server.register(routes);
 server.register(routesWithAuth);
 server.register(routesWithAuthAdmin);
