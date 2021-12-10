@@ -3,7 +3,7 @@ on: [pull_request]
 
 jobs: 
   pull-request: 
-    name: deploy
+    name: pull-request
     runs-on: ubuntu-latest
 
     steps: 
