@@ -1,0 +1,8 @@
+version: '3.19'
+services:
+  wizmi_api:
+    build: .
+    image: wizmi_api
+    command: npm run start
+    ports:
+      - "8016:8016"

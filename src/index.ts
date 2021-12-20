@@ -53,7 +53,7 @@ server.register(routesWithAuthAdmin);
 
 const start = async () => {
   try {
-    await server.listen(PORT);
+    await server.listen(PORT, '0.0.0.0');
   } catch (err) {
     server.log.error(err);
     process.exit(1);
