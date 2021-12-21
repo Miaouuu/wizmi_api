@@ -3,6 +3,6 @@ services:
   wizmi_api:
     build: .
     image: wizmi_api
-    command: npm run start
+    command: pnpm run start
     ports:
       - "8016:8016"
