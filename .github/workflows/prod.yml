@@ -22,7 +22,7 @@ jobs:
       - name: "Install PNPM"
         uses: pnpm/action-setup@v2.0.1
         with:
-        version: 6.24.2 
+          version: 6.24.2 
 
       - name: "Install dependencies"
         run: pnpm install
