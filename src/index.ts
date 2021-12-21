@@ -2,6 +2,7 @@ import './env';
 
 import { fastify } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
+import fastifyCors from 'fastify-cors';
 import * as Sentry from '@sentry/node';
 import { PrismaClient } from '.prisma/client';
 import { routes, routesWithAuth, routesWithAuthAdmin } from './api/routes';
@@ -17,6 +18,9 @@ server.addHook('onError', async (_request, _reply, error) => {
   Sentry.captureException(error);
 });
 
+server.register(fastifyCors, {
+  origin: '*',
+});
 server.register(fastifySwagger, {
   routePrefix: '/documentation',
   swagger: {
@@ -49,7 +53,7 @@ server.register(routesWithAuthAdmin);
 
 const start = async () => {
   try {
-    await server.listen(PORT);
+    await server.listen(PORT, '0.0.0.0');
   } catch (err) {
     server.log.error(err);
     process.exit(1);

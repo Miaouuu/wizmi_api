@@ -1,0 +1,40 @@
+name: preprod
+
+on: 
+  push: 
+    branches: 
+      - develop
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: "Install Node"
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: "Install dependencies"
+        run: npm install
+
+      - name: Run linter
+        run: npm run lint
+      
+      - name: Deploy Vps
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd wizmi_api
+            git pull origin develop
+            npm i
+            npm run build
+            pm2 restart wizmi-dev
