@@ -37,5 +37,5 @@ jobs:
             git pull origin develop
             docker-compose stop wizmi_api
             docker-compose rm -f wizmi_api
-            docker-compose image rm wizmi_api
+            docker image rm wizmi_api
             docker-compose up --build -d wizmi_api
