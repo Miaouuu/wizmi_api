@@ -35,6 +35,7 @@ jobs:
           script: |
             cd wizmi_api
             git pull origin develop
-            npm i
-            npm run build
-            pm2 restart wizmi-dev
+            docker-compose stop wizmi_api
+            docker-compose rm -f wizmi_api
+            docker image rm wizmi_api
+            docker-compose up --build -d wizmi_api
