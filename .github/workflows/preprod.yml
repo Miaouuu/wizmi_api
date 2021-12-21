@@ -19,11 +19,16 @@ jobs:
         with:
           node-version: '16'
 
+      - name: "Install PNPM"
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.24.2
+
       - name: "Install dependencies"
-        run: npm install
+        run: pnpm install
 
       - name: Run linter
-        run: npm run lint
+        run: pnpm run lint
       
       - name: Deploy Vps
         uses: appleboy/ssh-action@v0.1.4
