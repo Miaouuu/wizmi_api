@@ -1,3 +1,4 @@
+import { ErrorType, IError } from 'wizmi';
 import prisma from '../../prisma';
 
 export const getUserById = async (id: number) => {
@@ -9,7 +10,7 @@ export const getUserById = async (id: number) => {
     });
     return user;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -22,7 +23,7 @@ export const getUserByEmail = async (email: string) => {
     });
     return user;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -35,7 +36,7 @@ export const getUserByUsername = async (username: string) => {
     });
     return user;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -50,6 +51,6 @@ export const createUser = async (email: string, username: string, password: stri
       },
     });
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };

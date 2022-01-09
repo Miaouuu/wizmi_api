@@ -1,3 +1,4 @@
+import { ErrorType, IError } from 'wizmi';
 import prisma from '../../prisma';
 import { CreateLevelInput } from './models';
 
@@ -10,7 +11,7 @@ export const findOneLevel = async (id: number) => {
     });
     return level;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -32,6 +33,6 @@ export const createLevel = async ({
       });
     }
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };

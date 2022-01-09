@@ -1,3 +1,4 @@
+import { ErrorType, IError } from 'wizmi';
 import prisma from '../../prisma';
 
 export const findAllWorlds = async () => {
@@ -12,7 +13,7 @@ export const findAllWorlds = async () => {
     });
     return worlds;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -25,6 +26,6 @@ export const createWorld = async (name: string, value: number) => {
       },
     });
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };

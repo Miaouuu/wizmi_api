@@ -5,6 +5,7 @@ import fastifySwagger from 'fastify-swagger';
 import fastifyCors from 'fastify-cors';
 import * as Sentry from '@sentry/node';
 import { PrismaClient } from '@prisma/client';
+import { IError, ErrorType } from 'wizmi';
 import { routes, routesWithAuth, routesWithAuthAdmin } from './api/routes';
 
 const server = fastify();
@@ -14,13 +15,19 @@ Sentry.init({
   dsn: SENTRY_DSN,
 });
 
-server.addHook('onError', async (_request, _reply, error) => {
+server.setErrorHandler((error, _request, reply) => {
   Sentry.captureException(error);
+  if (error.validation) {
+    const errorValidation: IError = { type: ErrorType.BAD_REQUEST, key: 'validation_error' };
+    reply.status(errorValidation.type).send(errorValidation);
+  }
+  reply.status(error.type).send(error);
 });
 
 server.register(fastifyCors, {
   origin: '*',
 });
+
 server.register(fastifySwagger, {
   routePrefix: '/documentation',
   swagger: {
@@ -65,6 +72,10 @@ start();
 declare module 'fastify' {
   interface FastifyRequest {
     user: { id: number };
+  }
+
+  interface FastifyError extends IError {
+    [key: string]: string
   }
 
   interface FastifyInstance {

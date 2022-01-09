@@ -1,10 +1,11 @@
 import { FastifyRequest } from 'fastify';
 import jsonwebtoken from 'jsonwebtoken';
+import { IError, ErrorType } from 'wizmi';
 import { getUserByEmail, getUserById, getUserByUsername } from '../users/services';
 
 const { JWT_SECRET = 'meow' } = process.env;
 
-function jwt(token: string, secret: string): Promise<{ id: number }> {
+function jwt(token: string, secret: string): Promise<number> {
   return new Promise((resolve, reject) => {
     jsonwebtoken.verify(token, secret, (err, decoded) => {
       if (err) {
@@ -18,22 +19,22 @@ function jwt(token: string, secret: string): Promise<{ id: number }> {
 export const verifToken = async (req: FastifyRequest) => {
   const { authorization } = req.headers;
   if (!authorization) {
-    throw new Error('No token provided');
+    throw { type: ErrorType.UNAUTHORIZED, key: 'no_token_provided' } as IError;
   }
   const [, token] = authorization.split(' ');
   if (!token) {
-    throw new Error('No token provided');
+    throw { type: ErrorType.UNAUTHORIZED, key: 'no_token_provided' } as IError;
   }
   try {
     const id = await jwt(token, JWT_SECRET);
     if (typeof id !== 'number') {
-      throw new Error('Unauthorized');
+      throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
     }
     req.user = {
       id,
     };
   } catch {
-    throw new Error('Unauthorized');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
@@ -41,10 +42,10 @@ export const isAdmin = async (req: FastifyRequest) => {
   const { id } = req.user;
   const user = await getUserById(id);
   if (!user) {
-    throw new Error('Account doesn\'t exist !');
+    throw { type: ErrorType.NOT_FOUND, key: 'user_not_found' } as IError;
   }
   if (!user.roles.includes('ADMIN')) {
-    throw new Error('Unauthorized !');
+    throw { type: ErrorType.UNAUTHORIZED, key: 'no_permission' } as IError;
   }
 };
 
