@@ -12,7 +12,6 @@
     "start": "pnpm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "format": "eslint . --ext .ts --fix",
-    "prepare": "husky install",
     "prisma:schema:_init": "cat ./prisma/database.prisma > ./prisma/schema.prisma",
     "prisma:schema:_merge": "cat ./prisma/models/*.prisma >> ./prisma/schema.prisma",
     "prisma:schema:merge": "pnpm run prisma:schema:_init && pnpm run prisma:schema:_merge && pnpm prisma format",
@@ -22,14 +21,12 @@
     "prisma:migration:prod": "pnpm prisma migrate deploy",
     "prisma:migration:status": "pnpm prisma migrate status",
     "prisma:migration:reset": "pnpm prisma migrate reset",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "(node -e \"process.env.NODE_ENV === 'production' && process.exit(1)\" && husky install) || echo \"$NODE_ENV\""
   },
   "author": "Ruben",
   "license": "ISC",
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/jsonwebtoken": "^8.5.6",
-    "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "eslint": "^8.3.0",
@@ -41,12 +38,12 @@
     "husky": "^7.0.4",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.0",
-    "prisma": "^3.6.0",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "ts-node": "^10.4.0"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/node": "^16.11.11",
     "@prisma/client": "^3.6.0",
     "@sentry/node": "^6.16.0",
     "bcryptjs": "^2.4.3",
@@ -56,6 +53,9 @@
     "fastify-cors": "^6.0.2",
     "fastify-plugin": "^3.0.0",
     "fastify-swagger": "^4.12.6",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^3.6.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.2"
   }
 }
