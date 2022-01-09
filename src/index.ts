@@ -4,11 +4,11 @@ import { fastify } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import fastifyCors from 'fastify-cors';
 import * as Sentry from '@sentry/node';
-import { PrismaClient } from '.prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { routes, routesWithAuth, routesWithAuthAdmin } from './api/routes';
 
 const server = fastify();
-const { PORT = 3000, SENTRY_DSN = '', URL = '' } = process.env;
+const { PORT = 8016, SENTRY_DSN = '', URL = '' } = process.env;
 
 Sentry.init({
   dsn: SENTRY_DSN,
