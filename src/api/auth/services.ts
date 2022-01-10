@@ -1,7 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import jsonwebtoken from 'jsonwebtoken';
 import { IError, ErrorType } from 'wizmi';
-import { getUserByEmail, getUserById, getUserByUsername } from '../users/services';
+import { findUserByEmail, findUserById, findUserByUsername } from '../users/services';
 
 const { JWT_SECRET = 'meow' } = process.env;
 
@@ -40,7 +40,7 @@ export const verifToken = async (req: FastifyRequest) => {
 
 export const isAdmin = async (req: FastifyRequest) => {
   const { id } = req.user;
-  const user = await getUserById(id);
+  const user = await findUserById(id);
   if (!user) {
     throw { type: ErrorType.NOT_FOUND, key: 'user_not_found' } as IError;
   }
@@ -55,7 +55,7 @@ export const isEmail = (email: string): boolean => /^\w+([.-]?\w+)*@\w+([.-]?\w+
 
 export const existEmail = async (email: string): Promise<boolean> => {
   try {
-    const user = await getUserByEmail(email);
+    const user = await findUserByEmail(email);
     if (!user) {
       return false;
     }
@@ -67,7 +67,7 @@ export const existEmail = async (email: string): Promise<boolean> => {
 
 export const existUsername = async (username: string): Promise<boolean> => {
   try {
-    const user = await getUserByUsername(username);
+    const user = await findUserByUsername(username);
     if (!user) {
       return false;
     }

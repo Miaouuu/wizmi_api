@@ -1,11 +1,11 @@
 import { FastifyRequest } from 'fastify';
 import { IError, ErrorType } from 'wizmi';
-import { getUserById } from './services';
+import { findUserById } from './services';
 
 const me = async (req: FastifyRequest) => {
   const { id } = req.user;
   try {
-    const user = await getUserById(id);
+    const user = await findUserById(id);
     if (!user) {
       throw { type: ErrorType.NOT_FOUND, key: 'user_not_found' } as IError;
     }
