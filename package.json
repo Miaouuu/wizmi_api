@@ -1,7 +1,10 @@
 {
   "name": "wizmi_api",
   "version": "0.0.1",
-  "description": "Wizmi API",
+  "description": "Wizmi API - Built in Fastify & Prisma",
+  "keywords": ["learning", "wizmi", "fastify", "prisma"],
+  "homepage": "https://github.com/Miaouuu/wizmi_api",
+  "private": "true",
   "engines": {
     "node": ">=16.13.1",
     "pnpm": ">=6.24.2"
@@ -25,7 +28,7 @@
     "postinstall": "(node -e \"process.env.NODE_ENV === 'production' && process.exit(1)\" && husky install) || echo \"$NODE_ENV\""
   },
   "author": "Ruben",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
