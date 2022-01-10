@@ -16,5 +16,7 @@
     "airbnb-base",
     "airbnb-typescript/base"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-throw-literal": "off"
+  }
 }

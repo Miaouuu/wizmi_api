@@ -1,22 +1,22 @@
 import { FastifyRequest } from 'fastify';
-import { CreateWorldInput } from './models';
+import { IError, CreateWorldInput } from 'wizmi';
 import { createWorld, findAllWorlds } from './services';
 
-export const getWorlds = async () => {
+export const getAllWorlds = async () => {
   try {
     const worlds = await findAllWorlds();
     return worlds;
-  } catch {
-    throw new Error('Error server !');
+  } catch (e) {
+    throw e as IError;
   }
 };
 
-export const postWorld = async (req: FastifyRequest<CreateWorldInput>) => {
+export const postWorld = async (req: FastifyRequest<{ Body: CreateWorldInput }>) => {
   const { name, value } = req.body;
   try {
     await createWorld(name, value);
     return { ok: true };
-  } catch {
-    throw new Error('Error server !');
+  } catch (e) {
+    throw e as IError;
   }
 };

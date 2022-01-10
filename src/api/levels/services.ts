@@ -1,5 +1,5 @@
+import { ErrorType, IError, CreateLevelInput } from 'wizmi';
 import prisma from '../../prisma';
-import { CreateLevelInput } from './models';
 
 export const findOneLevel = async (id: number) => {
   try {
@@ -10,14 +10,12 @@ export const findOneLevel = async (id: number) => {
     });
     return level;
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
 
 export const createLevel = async ({
-  Body: {
-    name, reward, data, worldId, type,
-  },
+  name, reward, data, worldId, type,
 }: CreateLevelInput) => {
   try {
     if (type === 'SQUARE') {
@@ -32,6 +30,6 @@ export const createLevel = async ({
       });
     }
   } catch {
-    throw new Error('Error server !');
+    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };

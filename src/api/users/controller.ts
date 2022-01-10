@@ -1,22 +1,22 @@
 import { FastifyRequest } from 'fastify';
-import { getUserById } from './services';
+import { IError, ErrorType } from 'wizmi';
+import { findUserById } from './services';
 
 const me = async (req: FastifyRequest) => {
   const { id } = req.user;
-  let user;
   try {
-    user = await getUserById(id);
-  } catch {
-    throw new Error('Error server !');
+    const user = await findUserById(id);
+    if (!user) {
+      throw { type: ErrorType.NOT_FOUND, key: 'user_not_found' } as IError;
+    }
+    return {
+      email: user.email,
+      username: user.email,
+      roles: user.roles,
+    };
+  } catch (e) {
+    throw e as IError;
   }
-  if (!user) {
-    throw new Error('Account does\'t exist');
-  }
-  return {
-    email: user.email,
-    username: user.email,
-    roles: user.roles,
-  };
 };
 
 export default me;

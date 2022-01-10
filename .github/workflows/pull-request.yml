@@ -10,13 +10,19 @@ jobs:
       - name: "Init repository"
         uses: actions/checkout@v2
 
+      - name: "Install PNPM"
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.24.2 
+
       - name: "Install Node"
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          cache: 'pnpm'
       
       - name: "Install dependencies"
-        run: npm install
+        run: pnpm install
 
       - name: "Run ESLint"
-        run: npm run lint
+        run: pnpm run lint
