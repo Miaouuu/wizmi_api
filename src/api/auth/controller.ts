@@ -1,13 +1,14 @@
 import { FastifyRequest } from 'fastify';
 import bcrypt from 'bcryptjs';
-import { IError, ErrorType } from 'wizmi';
-import { LoginUserInput, RegisterUserInput } from './models';
+import {
+  IError, ErrorType, LoginUserInput, RegisterUserInput,
+} from 'wizmi';
 import {
   existEmail, existUsername, generateToken, isEmail,
 } from './services';
 import { createUser, getUserByEmail } from '../users/services';
 
-export const login = async (req: FastifyRequest<LoginUserInput>) => {
+export const login = async (req: FastifyRequest<{ Body: LoginUserInput }>) => {
   const { email, password } = req.body;
   if (!isEmail(email)) {
     throw { type: ErrorType.BAD_REQUEST, key: 'invalid_email' } as IError;
@@ -24,7 +25,7 @@ export const login = async (req: FastifyRequest<LoginUserInput>) => {
   }
 };
 
-export const register = async (req: FastifyRequest<RegisterUserInput>) => {
+export const register = async (req: FastifyRequest<{ Body: RegisterUserInput }>) => {
   const { email, username, password } = req.body;
   if (!isEmail(email)) {
     throw { type: ErrorType.BAD_REQUEST, key: 'invalid_email' } as IError;

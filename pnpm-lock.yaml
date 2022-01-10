@@ -29,7 +29,7 @@ specifiers:
   rimraf: ^3.0.2
   ts-node: ^10.4.0
   typescript: ^4.5.2
-  wizmi: latest
+  wizmi: 0.0.6
 
 dependencies:
   '@prisma/client': 3.7.0_prisma@3.7.0

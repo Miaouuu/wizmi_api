@@ -1,9 +1,10 @@
 import { FastifyRequest } from 'fastify';
-import { ErrorType, IError } from 'wizmi';
-import { CreateLevelInput, FindLevelInput } from './models';
+import {
+  ErrorType, FindLevelParams, IError, CreateLevelInput,
+} from 'wizmi';
 import { createLevel, findOneLevel } from './services';
 
-export const getOneLevel = async (req: FastifyRequest<FindLevelInput>) => {
+export const getOneLevel = async (req: FastifyRequest<{ Params: FindLevelParams }>) => {
   const { id } = req.params;
   try {
     const level = await findOneLevel(id);
@@ -16,9 +17,9 @@ export const getOneLevel = async (req: FastifyRequest<FindLevelInput>) => {
   }
 };
 
-export const postLevel = async (req: FastifyRequest<CreateLevelInput>) => {
+export const postLevel = async (req: FastifyRequest<{ Body: CreateLevelInput }>) => {
   try {
-    await createLevel({ Body: req.body });
+    await createLevel(req.body);
     return { ok: true };
   } catch (e) {
     throw e as IError;
