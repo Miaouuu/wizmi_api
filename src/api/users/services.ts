@@ -1,7 +1,7 @@
 import { ErrorType, IError } from 'wizmi';
 import prisma from '../../prisma';
 
-export const getUserById = async (id: number) => {
+export const findUserById = async (id: number) => {
   try {
     const user = await prisma.users.findFirst({
       where: {
@@ -14,7 +14,7 @@ export const getUserById = async (id: number) => {
   }
 };
 
-export const getUserByEmail = async (email: string) => {
+export const findUserByEmail = async (email: string) => {
   try {
     const user = await prisma.users.findFirst({
       where: {
@@ -27,7 +27,7 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
-export const getUserByUsername = async (username: string) => {
+export const findUserByUsername = async (username: string) => {
   try {
     const user = await prisma.users.findFirst({
       where: {

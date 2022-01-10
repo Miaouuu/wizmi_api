@@ -6,7 +6,7 @@ import {
 import {
   existEmail, existUsername, generateToken, isEmail,
 } from './services';
-import { createUser, getUserByEmail } from '../users/services';
+import { createUser, findUserByEmail } from '../users/services';
 
 export const login = async (req: FastifyRequest<{ Body: LoginUserInput }>) => {
   const { email, password } = req.body;
@@ -14,7 +14,7 @@ export const login = async (req: FastifyRequest<{ Body: LoginUserInput }>) => {
     throw { type: ErrorType.BAD_REQUEST, key: 'invalid_email' } as IError;
   }
   try {
-    const user = await getUserByEmail(email);
+    const user = await findUserByEmail(email);
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'invalid_email_or_password' } as IError;
     }
