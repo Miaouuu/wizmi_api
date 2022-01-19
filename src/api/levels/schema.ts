@@ -20,7 +20,7 @@ export const getOneLevelSchema: FastifySchema = {
         name: { type: 'string' },
         reward: { type: 'string' },
         worldId: { type: 'number' },
-        data: { type: 'string' },
+        data: {},
         type: { type: 'string' },
       },
     },
