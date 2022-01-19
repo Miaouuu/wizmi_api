@@ -23,7 +23,7 @@ export const getAllWorldsSchema: FastifySchema = {
                 name: { type: 'string' },
                 reward: { type: 'string' },
                 worldId: { type: 'number' },
-                data: { type: 'string' },
+                data: {},
                 type: { type: 'string' },
               },
             },

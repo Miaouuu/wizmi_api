@@ -8,7 +8,11 @@ export const findAllWorlds = async () => {
         value: 'asc',
       },
       include: {
-        levels: true,
+        levels: {
+          orderBy: {
+            id: 'asc',
+          },
+        },
       },
     });
     return worlds;
