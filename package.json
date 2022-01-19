@@ -1,6 +1,6 @@
 {
   "name": "wizmi_api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Wizmi API - Built in Fastify & Prisma",
   "keywords": ["learning", "wizmi", "fastify", "prisma"],
   "homepage": "https://github.com/Miaouuu/wizmi_api",
