@@ -2,7 +2,12 @@
   "name": "wizmi_api",
   "version": "0.1.0",
   "description": "Wizmi API - Built in Fastify & Prisma",
-  "keywords": ["learning", "wizmi", "fastify", "prisma"],
+  "keywords": [
+    "learning",
+    "wizmi",
+    "fastify",
+    "prisma"
+  ],
   "homepage": "https://github.com/Miaouuu/wizmi_api",
   "private": "true",
   "engines": {
@@ -44,6 +49,7 @@
     "ts-node": "^10.4.0"
   },
   "dependencies": {
+    "@linear/sdk": "^1.22.0",
     "@prisma/client": "^3.6.0",
     "@sentry/node": "^6.16.0",
     "@types/bcryptjs": "^2.4.2",
