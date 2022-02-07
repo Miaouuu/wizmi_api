@@ -1,0 +1,7 @@
+model Feedbacks {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(140)
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
