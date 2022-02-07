@@ -1,4 +1,4 @@
-model Feedback {
+model Feedbacks {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(140)
   description String
