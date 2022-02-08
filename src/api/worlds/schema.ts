@@ -1,9 +1,9 @@
 import { FastifySchema } from 'fastify';
 
-export const getAllWorldsSchema: FastifySchema = {
-  description: 'Route to get all worlds',
+export const getWorldsSchema: FastifySchema = {
+  description: 'Route to get worlds',
   tags: ['Worlds'],
-  summary: 'Get all worlds',
+  summary: 'Get worlds',
   response: {
     200: {
       description: 'Successful response',

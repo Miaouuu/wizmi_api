@@ -1,11 +1,11 @@
 import { FastifyInstance } from 'fastify';
-import { getOneLevel, postLevel } from './controller';
-import { getOneLevelSchema, postLevelSchema } from './schema';
+import { getLevel, postLevel } from './controller';
+import { getLevelSchema, postLevelSchema } from './schema';
 
 export const routes = async (server: FastifyInstance) => {
   server.get('/:id', {
-    schema: getOneLevelSchema,
-    handler: getOneLevel,
+    schema: getLevelSchema,
+    handler: getLevel,
   });
 };
 

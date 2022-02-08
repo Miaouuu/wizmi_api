@@ -1,6 +1,6 @@
 import { FastifySchema } from 'fastify';
 
-export const getOneLevelSchema: FastifySchema = {
+export const getLevelSchema: FastifySchema = {
   description: 'Route to get a level',
   tags: ['Levels'],
   summary: 'Get a level',

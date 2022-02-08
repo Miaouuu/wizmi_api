@@ -1,7 +1,7 @@
 import { ErrorType, IError, CreateLevelInput } from 'wizmi';
 import prisma from '../../prisma';
 
-export const findOneLevel = async (id: number) => {
+export const findLevel = async (id: number) => {
   try {
     const level = await prisma.levels.findFirst({
       where: {

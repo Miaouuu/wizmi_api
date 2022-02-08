@@ -1,10 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { IError, CreateWorldInput } from 'wizmi';
-import { createWorld, findAllWorlds } from './services';
+import { createWorld, findWorlds } from './services';
 
-export const getAllWorlds = async () => {
+export const getWorlds = async () => {
   try {
-    const worlds = await findAllWorlds();
+    const worlds = await findWorlds();
     return worlds;
   } catch (e) {
     throw e as IError;
