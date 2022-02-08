@@ -1,11 +1,11 @@
 import { FastifyInstance } from 'fastify';
-import { getAllWorlds, postWorld } from './controller';
-import { getAllWorldsSchema, postWorldSchema } from './schema';
+import { getWorlds, postWorld } from './controller';
+import { getWorldsSchema, postWorldSchema } from './schema';
 
 export const routes = async (server: FastifyInstance) => {
   server.get('/', {
-    schema: getAllWorldsSchema,
-    handler: getAllWorlds,
+    schema: getWorldsSchema,
+    handler: getWorlds,
   });
 };
 

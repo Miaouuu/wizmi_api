@@ -30,7 +30,7 @@ specifiers:
   rimraf: ^3.0.2
   ts-node: ^10.4.0
   typescript: ^4.5.2
-  wizmi: latest
+  wizmi: ^0.1.4
 
 dependencies:
   '@linear/sdk': 1.22.0
@@ -50,7 +50,7 @@ dependencies:
   prisma: 3.7.0
   rimraf: 3.0.2
   typescript: 4.5.4
-  wizmi: 0.1.1
+  wizmi: 0.1.4
 
 devDependencies:
   '@typescript-eslint/eslint-plugin': 5.9.0_bd2fd93dbcc607ad2f21b784bccfe0c8
@@ -2740,8 +2740,8 @@ packages:
       string-width: 4.2.3
     dev: true
 
-  /wizmi/0.1.1:
-    resolution: {integrity: sha512-axGXs/F61ZN5HwNX4LhfUzkRz/MA7xRy0ipDJiFXudrKUUlRVNIQT8HknDTOOhkLgayDa4vWBhy0AITJv8Z8GA==}
+  /wizmi/0.1.4:
+    resolution: {integrity: sha512-y9boO55KnoTADjySSTc3FcV+bHPzoTGuvG3wvb1QVhr86X0P9PHPez5a4fRQeRT2jKAnjYcOkKhUvrrCqN6LTw==}
     engines: {node: '>=16.13.1', pnpm: '>=6.24.2'}
     dev: false
 

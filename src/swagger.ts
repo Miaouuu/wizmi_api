@@ -20,8 +20,10 @@ const swaggerOptions: SwaggerOptions = {
     produces: ['application/json'],
     tags: [
       { name: 'Authentication', description: 'How to authenticate' },
+      { name: 'Changelogs', description: 'Changelogs endpoints' },
       { name: 'Feedbacks', description: 'Feedbacks endpoints' },
       { name: 'Levels', description: 'Levels endpoints' },
+      { name: 'Releases', description: 'Releases endpoints' },
       { name: 'Users', description: 'Users endpoints' },
       { name: 'Worlds', description: 'Worlds endpoints' },
     ],
