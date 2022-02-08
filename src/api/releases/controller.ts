@@ -23,7 +23,6 @@ export const getReleaseWithChangelogs = async (req: FastifyRequest<{ Params: Fin
     if (!release) {
       throw { type: ErrorType.NOT_FOUND, key: 'level_not_found' } as IError;
     }
-    console.log(release);
     return release;
   } catch (e) {
     throw e as IError;

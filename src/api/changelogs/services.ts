@@ -15,7 +15,6 @@ export const createChangelog = async (changelog: CreateChangelogInput) => {
       },
     });
   } catch (e) {
-    console.error(e);
     throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
   }
 };
