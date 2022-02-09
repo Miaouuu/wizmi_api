@@ -23,7 +23,7 @@ export const assignChangelogsToRelease = async (releaseId: number) => {
   try {
     await prisma.changelogs.updateMany({
       where: {
-        releaseId: undefined,
+        releaseId: null,
       },
       data: {
         releaseId,
