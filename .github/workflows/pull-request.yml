@@ -24,5 +24,11 @@ jobs:
       - name: "Install dependencies"
         run: pnpm install
 
-      - name: "Run ESLint"
+      - name: "Run Build"
+        run: pnpm run build
+
+      - name: "Run linter"
         run: pnpm run lint
+      
+      - name: "Run test"
+        run: pnpm test
