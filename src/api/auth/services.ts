@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { IError, ErrorType } from 'wizmi';
 import { findUserByEmail, findUserById, findUserByUsername } from '../users/services';
 
-const { JWT_SECRET = 'meow' } = process.env;
+const { JWT_SECRET = 'meow', API_TOKEN = 'woof' } = process.env;
 
 function jwt(token: string, secret: string): Promise<number> {
   return new Promise((resolve, reject) => {
@@ -28,13 +28,27 @@ export const verifToken = async (req: FastifyRequest) => {
   try {
     const id = await jwt(token, JWT_SECRET);
     if (typeof id !== 'number') {
-      throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
+      throw { type: ErrorType.UNAUTHORIZED, key: 'server_error' } as IError;
     }
     req.user = {
       id,
     };
   } catch {
-    throw { type: ErrorType.INTERNAL_SERVER_ERROR, key: 'server_error' } as IError;
+    throw { type: ErrorType.UNAUTHORIZED, key: 'wrong_token' } as IError;
+  }
+};
+
+export const verifApiToken = async (req: FastifyRequest) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    throw { type: ErrorType.UNAUTHORIZED, key: 'no_token_provided' } as IError;
+  }
+  const [, token] = authorization.split(' ');
+  if (!token) {
+    throw { type: ErrorType.UNAUTHORIZED, key: 'no_token_provided' } as IError;
+  }
+  if (token !== API_TOKEN) {
+    throw { type: ErrorType.UNAUTHORIZED, key: 'wrong_token' } as IError;
   }
 };
 

@@ -6,7 +6,9 @@ import fastifyCors from 'fastify-cors';
 import * as Sentry from '@sentry/node';
 import { PrismaClient } from '@prisma/client';
 import { IError, ErrorType } from 'wizmi';
-import { routes, routesWithAuth, routesWithAuthAdmin } from './api/routes';
+import {
+  routes, routesWithAuth, routesWithAuthAdmin, routesWithToken,
+} from './api/routes';
 import swaggerOptions from './swagger';
 
 const server = fastify();
@@ -34,6 +36,7 @@ server.register(fastifySwagger, swaggerOptions);
 server.register(routes);
 server.register(routesWithAuth);
 server.register(routesWithAuthAdmin);
+server.register(routesWithToken);
 
 const start = async () => {
   try {

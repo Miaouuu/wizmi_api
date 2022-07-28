@@ -1,7 +1,7 @@
 import { ErrorType, IError } from 'wizmi';
 import prisma from '../../prisma';
 
-export const findAllWorlds = async () => {
+export const findWorlds = async () => {
   try {
     const worlds = await prisma.worlds.findMany({
       orderBy: {

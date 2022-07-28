@@ -1,0 +1,22 @@
+name: release
+on: 
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs: 
+  release: 
+    name: release
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps: 
+      - name: Save release
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://wizmi-dev.miaou.land/releases/'
+          method: 'POST'
+          bearerToken: ${{ secrets.API_TOKEN }}
+          data: '{
+            "title": "${{ github.event.pull_request.title }}"
+          }'

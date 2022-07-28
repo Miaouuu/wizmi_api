@@ -1,0 +1,10 @@
+model Changelogs {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(240)
+  description String
+  author      String    @db.VarChar(240)
+  project     String    @db.VarChar(240)
+  release     Releases? @relation(fields: [releaseId], references: [id])
+  releaseId   Int?
+  createdAt   DateTime  @default(now())
+}

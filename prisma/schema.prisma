@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Changelogs {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(240)
+  description String
+  author      String    @db.VarChar(240)
+  project     String    @db.VarChar(240)
+  release     Releases? @relation(fields: [releaseId], references: [id])
+  releaseId   Int?
+  createdAt   DateTime  @default(now())
+}
+
 model Comments {
   id               Int             @id @default(autoincrement())
   content          String          @db.VarChar(240)
@@ -31,6 +42,14 @@ model CommunityLevels {
   finished  FinishedCommunityLevels[]
   createdAt DateTime                  @default(now())
   updatedAt DateTime                  @updatedAt
+}
+
+model Feedbacks {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(140)
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model FinishedCommunityLevels {
@@ -78,6 +97,13 @@ model Notes {
   communityLevelId Int
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
+}
+
+model Releases {
+  id         Int          @id @default(autoincrement())
+  title      String       @db.VarChar(240)
+  changelogs Changelogs[]
+  createdAt  DateTime     @default(now())
 }
 
 enum Roles {

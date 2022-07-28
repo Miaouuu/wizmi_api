@@ -1,0 +1,25 @@
+name: changelog
+on: 
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+
+jobs: 
+  changelog: 
+    name: changelog
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps: 
+      - name: Save changelog
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://wizmi-dev.miaou.land/changelogs/'
+          method: 'POST'
+          bearerToken: ${{ secrets.API_TOKEN }}
+          data: '{
+            "title": "${{ github.event.pull_request.title }}",
+            "description": ${{ toJSON(github.event.pull_request.body) }},
+            "author": "${{ github.event.pull_request.user.login }}",
+            "project": "${{ github.event.pull_request.head.repo.name }}"
+          }'

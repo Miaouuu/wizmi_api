@@ -2,12 +2,12 @@ import { FastifyRequest } from 'fastify';
 import {
   ErrorType, FindLevelParams, IError, CreateLevelInput,
 } from 'wizmi';
-import { createLevel, findOneLevel } from './services';
+import { createLevel, findLevel } from './services';
 
-export const getOneLevel = async (req: FastifyRequest<{ Params: FindLevelParams }>) => {
+export const getLevel = async (req: FastifyRequest<{ Params: FindLevelParams }>) => {
   const { id } = req.params;
   try {
-    const level = await findOneLevel(id);
+    const level = await findLevel(id);
     if (!level) {
       throw { type: ErrorType.NOT_FOUND, key: 'level_not_found' } as IError;
     }
