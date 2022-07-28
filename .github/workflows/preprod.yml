@@ -28,8 +28,11 @@ jobs:
       - name: "Install dependencies"
         run: pnpm install
 
-      - name: Run linter
+      - name: "Run Linter"
         run: pnpm run lint
+
+      - name: "Run tests"
+        run: pnpm test
       
       - name: Deploy Vps
         uses: appleboy/ssh-action@v0.1.4
