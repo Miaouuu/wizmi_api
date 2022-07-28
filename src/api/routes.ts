@@ -12,7 +12,7 @@ import userRoutesWithAuth from './users/routes';
 import * as worlds from './worlds/routes';
 
 export const routes = async (server: FastifyInstance) => {
-  server.get('/', async () => 'ok');
+  server.get('/', async () => 'oki');
 
   server.register(authRoutes, { prefix: '/auth' });
   server.register(feedbacks.routes, { prefix: '/feedbacks' });
