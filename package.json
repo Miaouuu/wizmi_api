@@ -16,10 +16,11 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc --project tsconfig.build.json",
     "start": "pnpm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "format": "eslint . --ext .ts --fix",
+    "test": "jest --coverage",
     "prisma:schema:_init": "cat ./prisma/database.prisma > ./prisma/schema.prisma",
     "prisma:schema:_merge": "cat ./prisma/models/*.prisma >> ./prisma/schema.prisma",
     "prisma:schema:merge": "pnpm run prisma:schema:_init && pnpm run prisma:schema:_merge && pnpm prisma format",
@@ -35,6 +36,7 @@
   "author": "Ruben",
   "license": "GPL-3.0-only",
   "devDependencies": {
+    "@types/jest": "^28.1.6",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "eslint": "^8.3.0",
@@ -44,8 +46,11 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
+    "jest": "^28.1.3",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.0",
+    "tap": "^16.3.0",
+    "ts-jest": "^28.0.7",
     "ts-node": "^10.4.0"
   },
   "dependencies": {

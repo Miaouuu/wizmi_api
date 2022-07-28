@@ -62,3 +62,5 @@ declare module 'fastify' {
     prisma: PrismaClient;
   }
 }
+
+export default server;

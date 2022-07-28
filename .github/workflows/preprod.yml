@@ -28,8 +28,14 @@ jobs:
       - name: "Install dependencies"
         run: pnpm install
 
+      - name: "Run Build"
+        run: pnpm run build
+
       - name: Run linter
         run: pnpm run lint
+
+      - name: Run linter
+        run: pnpm test
       
       - name: Deploy Vps
         uses: appleboy/ssh-action@v0.1.4
@@ -41,7 +47,4 @@ jobs:
           script: |
             cd wizmi_api
             git pull origin develop
-            docker-compose stop wizmi_api
-            docker-compose rm -f wizmi_api
-            docker image rm wizmi_api
             docker-compose up --build -d wizmi_api

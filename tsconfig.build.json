@@ -3,7 +3,7 @@
     "target": "es2020",
     "lib": ["es2020"],
     "module": "commonjs",
-    "rootDir": ".",
+    "rootDir": "src",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowJs": false,
@@ -29,5 +29,9 @@
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "skipLibCheck": true
-  }
+  },
+  "exclude": [
+    "jest.config.ts",
+    "test/"
+  ]
 }
