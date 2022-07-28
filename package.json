@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "rimraf ./build && tsc --project tsconfig.json",
+    "build": "rimraf ./build && tsc",
     "start": "pnpm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "format": "eslint . --ext .ts --fix",
